@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path');
 const connectDB = require('./config/db');
 const UserRoutes = require('./Router/userrouter');
 const ExamRoutes = require('./Router/examrouter');
@@ -17,12 +16,10 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("API is running  exam  portal project");
+});
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-})
 app.use('/api/auth', UserRoutes);
 app.use('/api/exam', ExamRoutes);
 app.use('/api/admin',AdminRouter)
