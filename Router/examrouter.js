@@ -20,7 +20,7 @@ const {
   getAllExams,
   getExamById,
   deleteExam,
-  updateExam,submitExam
+  updateExam,submitExam,checkExamStatus
 } = require("../controller/examcontroller");
 
 const router = express.Router();
@@ -31,6 +31,7 @@ router.get("/:id", getExamById); // GET  /api/exams/:id
 router.put("/:id", updateExam); // ✅ EDIT exam
 router.delete("/:id", deleteExam); // DELETE /api/exams/:id
 router.post("/:id/submit", submitExam); // POST 
+router.get('/status/:userId/:examId', checkExamStatus); // GET
 
 module.exports = router;
 

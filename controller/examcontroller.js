@@ -110,12 +110,29 @@ const updateExam = async (req, res) => {
   }
 };
 
+
+
+
+const checkExamStatus = async (req, res) => {
+  const { userId, examId } = req.params;
+  const result = await Result.findOne({ userId, examId });
+
+  if (result) {
+    return res.status(403).json({ 
+      message: "Exam already completed ", 
+      completed: true 
+    });
+  }
+
+  res.json({ allowed: true });
+};
 module.exports = {
   createExam,
   getAllExams,
   getExamById,
   deleteExam,
   updateExam,
-  submitExam
+  submitExam,
+  checkExamStatus
 };
 
