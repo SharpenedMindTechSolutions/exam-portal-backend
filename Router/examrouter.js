@@ -20,13 +20,14 @@ const {
   getAllExams,
   getExamById,
   deleteExam,
-  updateExam,submitExam,checkExamStatus
+  updateExam,submitExam,checkExamStatus,getParticularExams
 } = require("../controller/examcontroller");
 
 const router = express.Router();
 
 router.post("/create-exam", createExam); // POST /api/exams/create-exam
-router.get("/get-exam", getAllExams); // GET  /api/exams/get-exam
+router.get("/get-exam/", getAllExams); // GET  /api/exams/get-exam
+router.get("/get-exam/:domain", getParticularExams); // GET  /api/exams/get-exam/:domain
 router.get("/:id", getExamById); // GET  /api/exams/:id
 router.put("/:id", updateExam); // ✅ EDIT exam
 router.delete("/:id", deleteExam); // DELETE /api/exams/:id

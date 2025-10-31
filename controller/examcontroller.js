@@ -126,6 +126,31 @@ const checkExamStatus = async (req, res) => {
 
   res.json({ allowed: true });
 };
+
+
+
+// user particulary dream get it
+const getParticularExams = async (req, res) => {
+  try {
+    const { domain } = req.params; // e.g., "Data Science"
+    let exams;
+
+    if (domain) {
+      // ✅ Use regex for partial and case-insensitive matching
+      exams = await Exam.find({
+        domain: { $regex: domain, $options: "i" }
+      }).sort({ createdAt: -1 });
+    } else {
+      exams = await Exam.find().sort({ createdAt: -1 });
+    }
+
+    res.status(200).json(exams);
+  } catch (err) {
+    console.error("Error fetching exams:", err);
+    res.status(500).json({ message: "Error fetching exams" });
+  }
+};
+
 module.exports = {
   createExam,
   getAllExams,
@@ -133,6 +158,7 @@ module.exports = {
   deleteExam,
   updateExam,
   submitExam,
-  checkExamStatus
+  checkExamStatus,
+  getParticularExams
 };
 
